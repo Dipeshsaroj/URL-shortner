@@ -191,13 +191,6 @@
             Success! Your short link: <a href="http://localhost:8000/url/<%= id %>" target="_blank">http://localhost:8000/url/<%= id %></a>
         </div>
         <% } %>
-
-        <% if (locals.qrDataUrl) { %>
-        <div class="qr-container">
-            <img src="<%= locals.qrDataUrl %>" alt="QR code for short URL" />
-            <p>Scan this QR code to visit the short link.</p>
-        </div>
-        <% } %>
         
         <form method="POST" action="/url">
             <input type="text" name="url" placeholder="Paste your long URL here (e.g., https://example.com)..." required />
