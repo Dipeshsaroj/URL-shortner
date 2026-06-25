@@ -14,8 +14,23 @@ A simple Node.js URL shortener built with Express, MongoDB, and EJS.
    ```
 3. Open the app in your browser at `http://localhost:8000`
 
+## Technologies
+
+- Node.js
+- Express
+- MongoDB / Mongoose
+- EJS templates
+- shortid for URL tokens
+
+## Available Routes
+
+- `POST /url` — create a new short URL
+- `GET /url/:shortId` — redirect to the original URL
+- `GET /url/analytics/:shortId` — fetch click analytics
+
 ## Features
 
 - Create short URLs
-- Redirect from `http://localhost:8000/url/:shortId`
-- Analytics endpoint at `GET /url/analytics/:shortId`
+- Redirect visitors using generated short links
+- Track visit history for analytics
+- View saved URLs from the homepage
