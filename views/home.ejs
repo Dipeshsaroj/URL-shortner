@@ -70,6 +70,25 @@
             text-decoration: none;
         }
 
+        .qr-container {
+            text-align: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .qr-container img {
+            max-width: 200px;
+            border-radius: 16px;
+            border: 1px solid var(--border);
+            background: white;
+            padding: 0.75rem;
+        }
+
+        .qr-container p {
+            margin-top: 0.75rem;
+            color: var(--text-muted);
+            font-size: 0.95rem;
+        }
+
         form {
             display: flex;
             gap: 10px;
@@ -172,13 +191,19 @@
             Success! Your short link: <a href="http://localhost:8000/url/<%= id %>" target="_blank">http://localhost:8000/url/<%= id %></a>
         </div>
         <% } %>
+
+        <% if (locals.qrDataUrl) { %>
+        <div class="qr-container">
+            <img src="<%= locals.qrDataUrl %>" alt="QR code for short URL" />
+            <p>Scan this QR code to visit the short link.</p>
+        </div>
+        <% } %>
         
         <form method="POST" action="/url">
             <input type="text" name="url" placeholder="Paste your long URL here (e.g., https://example.com)..." required />
             <input type="text" name="customAlias" placeholder="Custom alias (optional)" />
             <input type="number" name="expirationDays" min="1" placeholder="Expire in days (optional)" />
             <button type="submit">Shorten</button>
-        </form>
 
         <% if (locals.urls && locals.urls.length > 0) { %>
         <div class="table-wrapper">
