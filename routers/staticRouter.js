@@ -4,10 +4,12 @@ const router = express.Router();
 
 // This route renders your home page with all the URLs
 router.get("/", async (req, res) => {
-    const allUrls = await URL.find({});
-    
+    const allUrls = await URL.find({}).sort({ createdAt: -1 });
+
     return res.render("home", {
         urls: allUrls,
+        id: req.query.id,
+        error: req.query.error,
     });
 });
 

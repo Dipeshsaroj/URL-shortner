@@ -91,29 +91,6 @@ app.get("/test", async (req, res) => {
     });
 });
 
-app.get("/url/:shortId", async (req, res) => {
-    const shortId = req.params.shortId;
-
-    const entry = await URL.findOneAndUpdate(
-        {
-            shortId,
-        },
-        {
-            $push: {
-                visitHistory: {
-                    timestamp: Date.now(),
-                },
-            },
-        }
-    );
-
-    if (!entry) {
-        return res.status(404).send("URL not found");
-    }
-
-    res.redirect(entry.redirectURL);
-});
-
 connectToMongoDB("mongodb://127.0.0.1:27017/shorturl")
     .then(() => console.log("MongoDB Connected"));
 
@@ -122,7 +99,16 @@ app.use("/url", urlRoute);
 app.get("/url/:shortId", async (req, res) => {
     const shortId = req.params.shortId;
 
-    const entry = await URL.findOneAndUpdate(
+    const entry = await URL.findOne({ shortId });
+    if (!entry) {
+        return res.status(404).send("URL not found");
+    }
+
+    if (entry.expirationDate && entry.expirationDate.getTime() < Date.now()) {
+        return res.status(410).send("This short link has expired.");
+    }
+
+    await URL.findOneAndUpdate(
         {
             shortId,
         },
@@ -130,14 +116,11 @@ app.get("/url/:shortId", async (req, res) => {
             $push: {
                 visitHistory: {
                     timestamp: Date.now(),
+                    userAgent: req.get("User-Agent") || "unknown",
                 },
             },
         }
     );
-
-    if (!entry) {
-        return res.status(404).send("URL not found");
-    }
 
     res.redirect(entry.redirectURL);
 });

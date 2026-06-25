@@ -31,6 +31,8 @@ A simple Node.js URL shortener built with Express, MongoDB, and EJS.
 ## Features
 
 - Create short URLs
+- Use a custom alias for shortened links
+- Set optional expiration dates for links
 - Redirect visitors using generated short links
 - Track visit history for analytics
 - View saved URLs from the homepage

@@ -13,10 +13,16 @@ const urlSchema = new mongoose.Schema(
             type: String,
             required: true,
         },
+        expirationDate: {
+            type: Date,
+        },
         visitHistory: [
             {
                 timestamp: {
                     type: Number,
+                },
+                userAgent: {
+                    type: String,
                 },
             },
         ],

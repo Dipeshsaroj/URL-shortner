@@ -54,6 +54,16 @@
             font-weight: 500;
         }
 
+        .error-msg {
+            background-color: #FEE2E2;
+            color: #B91C1C;
+            padding: 1rem;
+            border-radius: 8px;
+            margin-bottom: 1.5rem;
+            text-align: center;
+            font-weight: 500;
+        }
+
         .success-msg a {
             color: var(--primary);
             font-weight: bold;
@@ -151,6 +161,12 @@
     <div class="container">
         <h1>✂️ URL Shortener</h1>
         
+        <% if (locals.error) { %>
+        <div class="error-msg">
+            <%= locals.error %>
+        </div>
+        <% } %>
+
         <% if (locals.id) { %>
         <div class="success-msg">
             Success! Your short link: <a href="http://localhost:8000/url/<%= id %>" target="_blank">http://localhost:8000/url/<%= id %></a>
@@ -159,6 +175,8 @@
         
         <form method="POST" action="/url">
             <input type="text" name="url" placeholder="Paste your long URL here (e.g., https://example.com)..." required />
+            <input type="text" name="customAlias" placeholder="Custom alias (optional)" />
+            <input type="number" name="expirationDays" min="1" placeholder="Expire in days (optional)" />
             <button type="submit">Shorten</button>
         </form>
 
@@ -170,6 +188,7 @@
                         <th>S. No</th>
                         <th>ShortID</th>
                         <th>Original Link</th>
+                        <th>Expires</th>
                         <th>Clicks</th>
                     </tr>
                 </thead>
@@ -179,10 +198,16 @@
                         <td><%= index + 1 %></td>
                         <td><strong><%= url.shortId %></strong></td>
                         <td>
-                            <!-- Adding a CSS class to truncate long URLs if needed -->
                             <a class="url-link" href="<%= url.redirectURL %>" target="_blank">
                                 <%= url.redirectURL.length > 40 ? url.redirectURL.substring(0, 40) + '...' : url.redirectURL %>
                             </a>
+                        </td>
+                        <td>
+                            <% if (url.expirationDate) { %>
+                                <%= new Date(url.expirationDate).toLocaleDateString() %>
+                            <% } else { %>
+                                Never
+                            <% } %>
                         </td>
                         <td><span class="clicks-badge"><%= url.visitHistory.length %></span></td>
                     </tr>
