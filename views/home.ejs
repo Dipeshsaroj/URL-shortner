@@ -134,23 +134,25 @@
             width: 100%;
             border-collapse: collapse;
             text-align: left;
+            font-size: 0.9rem;
         }
 
         th {
             background-color: #F9FAFB;
             color: var(--text-muted);
             font-weight: 600;
-            padding: 1rem;
+            padding: 0.75rem;
             border-bottom: 2px solid var(--border);
             text-transform: uppercase;
-            font-size: 0.85rem;
+            font-size: 0.75rem;
             letter-spacing: 0.05em;
         }
 
         td {
-            padding: 1rem;
+            padding: 0.75rem;
             border-bottom: 1px solid var(--border);
             color: var(--text-main);
+            word-break: break-word;
         }
 
         tr:hover td {
@@ -160,6 +162,7 @@
         .url-link {
             color: var(--primary);
             text-decoration: none;
+            word-break: break-all;
         }
 
         .url-link:hover {
@@ -170,7 +173,7 @@
             background-color: var(--bg);
             padding: 0.25rem 0.75rem;
             border-radius: 9999px;
-            font-size: 0.875rem;
+            font-size: 0.75rem;
             font-weight: 600;
             color: var(--text-muted);
         }
