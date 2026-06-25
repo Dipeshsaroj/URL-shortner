@@ -1,9 +1,13 @@
 {
   "name": "urlshort",
   "version": "1.0.0",
-  "description": "",
+  "description": "A simple URL shortener built with Express, MongoDB, and EJS.",
   "license": "ISC",
-  "author": "",
+  "author": "Dipeshsaroj",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Dipeshsaroj/URL-shortner.git"
+  },
   "type": "commonjs",
   "main": "index.js",
   "scripts": {
